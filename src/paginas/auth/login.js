@@ -42,10 +42,9 @@ const login = ()=>{
             </div>
           </div>
           {/* /.col */}
-          <div className="col-4">
-            <button type="submit" className="btn btn-primary btn-block">Sign In</button>
-          </div>
+          
           {/* /.col */}
+          <br></br>
       </form>
       <div className="social-auth-Links text-center mb-3">  
         <button type='submit' className="btn btn-block btn-primary">
