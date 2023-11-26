@@ -19,7 +19,7 @@ const App = () => {
           element={<Home usuario={usuario} />}
         />
         <Route
-          path="/registro"
+          path="/"
           element={<RegistroForm />}
         />
       </Routes>

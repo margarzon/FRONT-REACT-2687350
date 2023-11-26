@@ -1,47 +1,296 @@
-/* En tu archivo Home.css */
+/* En el archivo Home.css */
 
 body {
-    background-color: white; /* Fondo blanco para toda la página */
-    margin: 0; /* Elimina los márgenes predeterminados del cuerpo */
+  background-color: #f5f5f5;
+  margin: 0;
+}
+
+header {
+  background-color: #56baed;
+  padding: 10px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  display: inline;
+  margin-right: 10px;
+}
+
+.dashboard-link {
+  text-decoration: none;
+  color: #3498db;
+  cursor: pointer;
+  transition: color 0.5s, opacity 1s;
+}
+
+.dashboard-link:hover {
+  color: #2980b9;
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
   }
-  
-  header {
-    background-color: #56baed; /* Fondo azul para el header */
-    padding: 10px;
+  50% {
+    opacity: 0.5;
   }
-  
-  nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  nav li {
-    display: inline;
-    margin-right: 10px;
-  }
-  
-  nav a {
-    text-decoration: none;
-    color: white; /* Color del texto del enlace en el header azul */
-  }
-  
-  p {
-    text-align: center;
-  }
-  
-  h1 {
-    text-align: center;
+}
+
+p {
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap; /* Agregado para permitir que los elementos se envuelvan en pantallas pequeñas */
+}
+
+.rectangle {
+  margin: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 70pc;
+}
+
+/* Estilo específico para el primer rectángulo */
+.welcome-rectangle {
+  flex: 0 0 30%;
+  margin-left: 40px;
+  margin-right: 60px;
+}
+
+/* Estilo específico para el segundo rectángulo */
+.other-rectangle {
+  flex-grow: 1;
+}
+
+/* Reglas de medios para pantallas pequeñas */
+@media screen and (max-width: 768px) {
+  .rectangle {
+    width: 100%; /* Hacer que los rectángulos ocupen el 100% del ancho en pantallas pequeñas */
+    margin-left: 0;
+    margin-right: 0;
   }
 
-  .container {
-    width: 33%;
-    margin: 33px;
-    float: left;
+  .welcome-rectangle,
+  .other-rectangle {
+    flex: 0 0 100%; /* Ocupar el 100% del ancho en pantallas pequeñas */
+    margin-left: 0;
+    margin-right: 0;
   }
-  
-  .rectangle {
-    background-color: #f0f0f0;
-    padding: 20px;
-    box-shadow: 5px 5px 5px #888888;
+}
+
+/* Agregar estilos específicos para el formulario dentro del rectángulo "Actualizar Datos" */
+.rectangle.other-rectangle[selected] form {
+  /* Estilos del formulario aquí */
+}
+
+/* Agregar estilos específicos para los campos del formulario */
+.rectangle.other-rectangle[selected] form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.rectangle.other-rectangle[selected] form input {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.rectangle.other-rectangle[selected] form button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.rectangle.other-rectangle[selected] form button:hover {
+  background-color: #2980b9;
+}
+
+/* Estilos específicos para el dropdown */
+div select {
+  font-family: 'Poppins', sans-serif; /* Cambia la fuente a Poppins */
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  background-color: #f5f5f5;
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+/* Estilos para los elementos option en el dropdown */
+div select option {
+  font-family: 'Poppins', sans-serif; /* Cambia la fuente a Poppins */
+  background-color: #FAFCFD;
+  color: #333;
+  font-size: 1.1rem;
+  padding: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #FF908B;
+    color: #fff;
   }
+}
+
+/* Estilos cuando se pasa el cursor sobre el dropdown */
+div select:hover {
+  background-color: #56baed;
+  color: #fff;
+}
+
+/* Estilos para el elemento seleccionado en el dropdown */
+div select option:checked {
+  background-color: #2980b9;
+  color: #fff;
+}
+
+/* Estilos cuando se pasa el cursor sobre el elemento seleccionado en el dropdown */
+div select option:checked:hover {
+  background-color: #2980b9;
+}
+
+
+/* ... (otros estilos) */
+
+/* Estilos para el ticket debajo del dropdown */
+.ticket-wrapper {
+  position: relative;
+  width: 380px;
+  height: 250px;
+  margin: 60px auto 0;
+}
+
+/* Estilos específicos para el ticket */
+.ticket {
+  background: #56baed;
+  height: 150px;
+  width: 300px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.ticket-txt,
+.ticket-sub-txt {
+  color: #fff;
+  position: absolute;
+  top: 30px;
+  left: 90px;
+  font-size: 56px;
+  font-weight: bold;
+  font-family: Poppins, sans-serif; /* Cambia la fuente a Poppins */
+}
+
+.ticket-sub-txt {
+  font-size: 20px;
+  top: 100px;
+  left: 70px;
+  font-weight: normal;
+}
+
+.left {
+  position: absolute;
+  top: 25px;
+  left: -40px;
+  width: 70px;
+  height: 70px;
+  background: #ffffff;
+  border-radius: 90px;
+}
+
+/* Estilos para el ticket rip */
+.ticket-rip {
+  background: #ebe4e4;
+  height: 150px;
+  width: 80px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  animation: tearoff 1.5s infinite;
+  transform-origin: 0 100%;
+  z-index: 10;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.right {
+  position: absolute;
+  top: 25px;
+  right: -40px;
+  width: 70px;
+  height: 70px;
+  background: #ffffff;
+  border-radius: 90px;
+  box-shadow: none;
+}
+
+.tear-line {
+  position: absolute;
+  top: -10px;
+  right: -5px;
+
+  p {
+    width: 15px;
+    height: 20px;
+    background: #ffffff;
+    border-radius: 90px;
+    box-shadow: none;
+    margin: 0 0 15px 0;
+  }
+}
+
+@keyframes tearoff {
+  50% {
+    right: 0;
+  }
+  60% {
+    transform: rotate(5deg);
+    box-shadow: 5px 5px 10px #111;
+  }
+  75% {
+    right: -25px;
+  }
+  100% {
+    right: 0;
+  }
+}
+
+.slide-in {
+  display: inline-block;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

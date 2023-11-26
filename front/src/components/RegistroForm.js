@@ -1,10 +1,11 @@
+// RegistroForm.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';  // Actualiza la importación
+import { useNavigate } from 'react-router-dom';
 import '../css/RegistroForm.css';
 
 const RegistroForm = () => {
-  const navigate = useNavigate();  // Actualiza la asignación
+  const navigate = useNavigate();
   const [usuario, setUsuario] = useState({
     firstName: '',
     lastName: '',
@@ -59,7 +60,7 @@ const RegistroForm = () => {
       alert('Registro exitoso.');
 
       // Navegar a la página de login después de un registro exitoso
-      navigate('/login');  // Actualiza la navegación
+      navigate('/login');
 
     } catch (error) {
       console.error('Error al registrar al usuario:', error);
@@ -90,60 +91,59 @@ const RegistroForm = () => {
   };
 
   return (
-<div className='flogin'>
-<div className="wrapper fadeInDown">
-      <div id="formContent">
-        <h2 className="active">Registrarse</h2>
-        <div className="fadeIn first">
-          <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
-        </div>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            id="login"
-            className="fadeIn second"
-            name="firstName"
-            placeholder="Nombres"
-            value={usuario.firstName}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            id="lastname"
-            className="fadeIn third"
-            name="lastName"
-            placeholder="Apellidos"
-            value={usuario.lastName}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            id="email"
-            className="fadeIn second"
-            name="email"
-            placeholder="Correo Electrónico"
-            value={usuario.email}
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            id="password"
-            className="fadeIn third"
-            name="password"
-            placeholder="Contraseña"
-            value={usuario.password}
-            onChange={handleChange}
-          />
-          <input type="submit" className="fadeIn fourth" value="Registrarse" />
-        </form>
-        <div id="formFooter">
-          <a className="underlineHover" href="#">
-            ¿Ya tienes una cuenta? Inicia Sesión
-          </a>
+    <div className='flogin'>
+      <div className="wrapper fadeInDown">
+        <div id="formContent">
+          <h2 className="active">Registrarse</h2>
+          <div className="fadeIn first">
+          </div>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              id="login"
+              className="fadeIn second"
+              name="firstName"
+              placeholder="Nombres"
+              value={usuario.firstName}
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              id="lastname"
+              className="fadeIn third"
+              name="lastName"
+              placeholder="Apellidos"
+              value={usuario.lastName}
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              id="email"
+              className="fadeIn second"
+              name="email"
+              placeholder="Correo Electrónico"
+              value={usuario.email}
+              onChange={handleChange}
+            />
+            <input
+              type="password"
+              id="password"
+              className="fadeIn third"
+              name="password"
+              placeholder="Contraseña"
+              value={usuario.password}
+              onChange={handleChange}
+            />
+            <input type="submit" className="fadeIn fourth" value="Registrarse" />
+          </form>
+          <div id="formFooter">
+            <a className="underlineHover" href="login">
+              ¿Ya tienes una cuenta? Inicia Sesión
+            </a>
+          </div>
         </div>
       </div>
     </div>
-</div>
   );
 };
 
