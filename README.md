@@ -44,5 +44,19 @@ REGISTRO EN BASE DE DATOS
 
 ![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/27a7be07-97d5-4d7c-9341-10185f5ab565)
 
+FUNCIONAMIENTO DE LA API DESDE FRONT
+
+![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/8d76e6d8-42cb-4835-befb-2537682dd688)
+
+![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/764a5369-9733-49f3-b75e-7cebedde8a7c)
+
+![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/b5a93a49-f638-4128-9534-7f6589d299ad)
+
+REGISTRO EN BASE DE DATOS 
+
+![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/ee11fe9a-9d4b-4f83-b9a8-8fc501b04e0a)
+
+![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/0ad25ef0-85b5-40e3-8e19-8ad2250a741e)
+
 
 
