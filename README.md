@@ -56,7 +56,27 @@ REGISTRO EN BASE DE DATOS
 
 ![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/ee11fe9a-9d4b-4f83-b9a8-8fc501b04e0a)
 
+
+
 ![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/0ad25ef0-85b5-40e3-8e19-8ad2250a741e)
+
+**VISTAS**
+
+_VISTA USUARIO_
+
+![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/e09dae7a-9e9f-4078-a906-3325c4b6122e)
+
+![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/e846bc3c-a303-4887-9b56-874d7d510053)
+
+![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/f313e8be-8963-4fec-9caa-04851844887f)
+
+![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/7e494c7e-23b2-4493-8388-0248daed5543)
+
+![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/69e5ca13-b473-4cff-a633-d23d5286ff58)
+
+![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/d2bb6458-37f0-4175-b1a0-dbd7bd5d46f2)
+
+
 
 
 
