@@ -1,6 +1,6 @@
 # FRONT-REACT-2687350
 
-**Dependencias necesarias**
+**Dependencias necesarias BACK**
 npm install axios@^1.6.2
 npm install colors@^1.4.0
 npm install cors@^2.8.5
@@ -14,6 +14,17 @@ npm install react-scripts@4.0.3
 npm install concurrently@^8.2.2
 npm install react-transition-group@^4.4.5
 npm install styled-components@^6.1.1
+
+**Dependencias necesarias FRONT**
+npm install @testing-library/jest-dom@^5.17.0
+npm install @testing-library/react@^13.4.0
+npm install @testing-library/user-event@^13.5.0
+npm install axios@^1.6.2
+npm install react@^18.2.0
+npm install react-dom@^18.2.0
+npm install react-router-dom@^6.20.0
+npm install react-scripts@5.0.1
+npm install web-vitals@^2.1.4
 
 **.env**
 
