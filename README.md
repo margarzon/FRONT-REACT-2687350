@@ -1,5 +1,20 @@
 # FRONT-REACT-2687350
 
+**Dependencias necesarias**
+npm install axios@^1.6.2
+npm install colors@^1.4.0
+npm install cors@^2.8.5
+npm install dotenv@^16.3.1
+npm install express@^4.18.2
+npm install moment@^2.29.4
+npm install mongoose@^7.6.5
+npm install nodemon@^3.0.1
+npm install react-router-dom@^6.20.0
+npm install react-scripts@4.0.3
+npm install concurrently@^8.2.2
+npm install react-transition-group@^4.4.5
+npm install styled-components@^6.1.1
+
 **.env**
 
 MONGO_URL=mongodb://localhost:27017/devcamp-2687350
