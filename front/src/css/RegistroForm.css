@@ -3,7 +3,7 @@
 /* BASIC */
 
 html {
-  background-color: #56baed;
+  background-color: #f5f5f5 !important;
 }
 
 body {
@@ -16,35 +16,53 @@ a {
   display:inline-block;
   text-decoration: none;
   font-weight: 400;
+  transition: color 0.3s ease-in-out; /* Agregado: Transición para enlaces */
 }
 
-.flogin{
-  background-color: #56baed;
-
+a:hover {
+  color: #5fbae9; /* Cambia el color al pasar el ratón sobre el enlace */
 }
+
+.flogin {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(-45deg, #a6dcef, #8fd3f4, #4a90e2, #b7e1f4, #a6dcef);
+  background-size: 500% 500%; /* Aumenté el tamaño del fondo para una animación más notoria */
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 h2 {
   text-align: center;
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
   display:inline-block;
-  margin: 40px 8px 10px 8px; 
+  margin: 20px 8px 10px 8px; /* Ajuste de márgenes */
   color: #cccccc;
 }
-
-
 
 /* STRUCTURE */
 
 .wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column; 
-    min-height: 100vh;
-    padding: 20px;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 20px;
+}
 
 #formContent {
   -webkit-border-radius: 10px 10px 10px 10px;
@@ -67,9 +85,9 @@ h2 {
   text-align: center;
   -webkit-border-radius: 0 0 10px 10px;
   border-radius: 0 0 10px 10px;
+  display: flex;
+  justify-content: space-around; /* Agregado: Estilo para la barra de navegación */
 }
-
-
 
 /* TABS */
 
@@ -82,9 +100,40 @@ h2.active {
   border-bottom: 2px solid #5fbae9;
 }
 
-
-
 /* FORM TYPOGRAPHY*/
+
+input, button {
+  display: inline-block;
+  display: block; /* Cambiado a bloque para usar margin: 0 auto; */
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid #ddd; /* Borde gris */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Borde difuminado */
+  margin: 0 auto; 
+  margin-top: 10px;
+  font-size: 100%;
+  margin-bottom: 10px;
+}
+
+.input, button:hover {
+  background-color: #45a049; /* Color verde oscuro al pasar el ratón */
+}
+
+button.btn {
+  
+}
+
+button.btn:hover {
+  background-color: #45a049;
+}
+
+input:focus, button:focus {
+  border-color: #5fbae9; /* Cambia el color del borde al enfocar el elemento */
+}
 
 input[type=button], input[type=submit], input[type=reset]  {
   background-color: #56baed;
@@ -101,11 +150,7 @@ input[type=button], input[type=submit], input[type=reset]  {
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   margin: 5px 20px 40px 20px;
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out; /* Agregado: Transición para botones */
 }
 
 input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
@@ -120,7 +165,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   transform: scale(0.95);
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -132,25 +177,18 @@ input[type=text] {
   margin: 5px;
   width: 85%;
   border: 2px solid #f6f6f6;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-  -webkit-border-radius: 5px 5px 5px 5px;
+  transition: all 0.5s ease-in-out; /* Agregado: Transición para inputs de texto y contraseña */
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus {
+input[type=text]:focus, input[type=password]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]:placeholder {
+input[type=text]::placeholder, input[type=password]::placeholder {
   color: #cccccc;
 }
-
-
 
 /* ANIMATIONS */
 
@@ -200,11 +238,9 @@ input[type=text]:placeholder {
   -webkit-animation:fadeIn ease-in 1;
   -moz-animation:fadeIn ease-in 1;
   animation:fadeIn ease-in 1;
-
   -webkit-animation-fill-mode:forwards;
   -moz-animation-fill-mode:forwards;
   animation-fill-mode:forwards;
-
   -webkit-animation-duration:1s;
   -moz-animation-duration:1s;
   animation-duration:1s;
@@ -254,48 +290,33 @@ input[type=text]:placeholder {
   width: 100%;
 }
 
-
-
 /* OTHERS */
 
 *:focus {
-    outline: none;
+  outline: none;
 } 
 
 #icon {
   width:60%;
 }
 
+.error-message {
+  color: #ff4d4d; /* Agregado: Estilo para mensajes de error */
+}
+
+.success-message {
+  color: #4caf50; /* Agregado: Estilo para mensajes de éxito */
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
 * {
   box-sizing: border-box;
 }
 
-input[type=password] {
-  background-color: #f6f6f6;
-  border: none;
-  color: #0d0d0d;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 5px;
-  width: 85%;
-  border: 2px solid #f6f6f6;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
-}
 
-input[type=password]:focus {
-  background-color: #fff;
-  border-bottom: 2px solid #5fbae9;
-}
 
-input[type=password]::placeholder {
-  color: #cccccc;
-}

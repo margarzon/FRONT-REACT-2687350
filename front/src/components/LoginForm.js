@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../css/RegistroForm.css'; // Importar el archivo CSS
+import '../css/RegistroForm.css';
 
 const LoginForm = () => {
   const [credenciales, setCredenciales] = useState({
@@ -22,28 +22,29 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      // Hacer la solicitud al servidor para verificar las credenciales
       const response = await axios.post('http://127.0.0.1:3000/users/login', credenciales);
 
-      // Imprime la respuesta completa en la consola
       console.log('Respuesta del servidor:', response);
 
-      // Mostrar alerta de credenciales válidas.
-      alert('Credenciales válidas.');
+      // Corrige la comparación de contraseñas
+      if (
+        response.data.data.email === 'medico@gmail.com' &&
+        response.data.data.password === 'med1234' // Actualiza la contraseña
+      ) {
+        // Redirige al usuario a /homemed si las credenciales son específicas
+        navigate('/homemed', { state: { usuario: response.data.data } });
+      } else {
+        // Redirige al usuario a /home si las credenciales no son específicas
+        navigate('/home', { state: { usuario: response.data.data } });
+      }
 
       // Limpiar el formulario después de un inicio de sesión exitoso
       setCredenciales({
         email: '',
         password: '',
       });
-
-      // Redirigir al usuario a la página de inicio con los datos del usuario
-      navigate('/home', { state: { usuario: response.data.data } });
-
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
-
-      // Mostrar alerta de error
       alert('Credenciales inválidas. Verifica tu correo electrónico y contraseña.');
     }
   };
@@ -75,8 +76,8 @@ const LoginForm = () => {
             <input type="submit" className="fadeIn fourth" value="Iniciar Sesión" />
           </form>
           <div id="formFooter">
-            <a className="underlineHover" href="#">
-              ¿Olvidaste tu contraseña?
+            <a className="underlineHover" href="/">
+              ¿No tienes una cuenta? Registrate
             </a>
           </div>
         </div>

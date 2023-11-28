@@ -46,38 +46,70 @@ const DashboardLink = ({ title, onSelect }) => (
   </div>
 );
 
-const FormularioMedicinaGeneral = () => {
-  const [nombrePaciente, setNombrePaciente] = useState('');
+const FormularioMedicinaGeneral = ({ usuario }) => {
   const [fechaCita, setFechaCita] = useState('');
   const [horaCita, setHoraCita] = useState('');
-
-  const handleNombreChange = (e) => {
-    setNombrePaciente(e.target.value);
-  };
+  const [medicoSeleccionado, setMedicoSeleccionado] = useState('');
 
   const handleFechaChange = (e) => {
     setFechaCita(e.target.value);
   };
 
+  const generateRandomHours = () => {
+    const hours = [];
+    for (let i = 6; i <= 18; i++) {
+      hours.push(`${i < 10 ? '0' : ''}${i}:00`);
+    }
+    return hours;
+  };
+
+  const randomHours = generateRandomHours();
+
   const handleHoraChange = (e) => {
     setHoraCita(e.target.value);
   };
 
+  const handleMedicoChange = (e) => {
+    setMedicoSeleccionado(e.target.value);
+  };
+
   const handleEnviarFormulario = () => {
-    alert(`Cita agendada para ${nombrePaciente} el ${fechaCita} a las ${horaCita}`);
+    alert(`Cita agendada para ${usuario.firstName} el ${fechaCita} a las ${horaCita} con el médico ${medicoSeleccionado}`);
   };
 
   return (
-    <div>
+    <div className="formulario-container">
       <h3>Formulario para Medicina General</h3>
-      <label htmlFor="nombrePaciente">Nombre del Paciente:</label>
-      <input type="text" id="nombrePaciente" value={nombrePaciente} onChange={handleNombreChange} />
+
+      <label>Nombre del Paciente:</label>
+      <span>{usuario.firstName} {usuario.lastName}</span>
 
       <label htmlFor="fechaCita">Fecha de la Cita:</label>
       <input type="date" id="fechaCita" value={fechaCita} onChange={handleFechaChange} />
 
       <label htmlFor="horaCita">Hora de la Cita:</label>
-      <input type="time" id="horaCita" value={horaCita} onChange={handleHoraChange} />
+      <select
+        id="horaCita"
+        value={horaCita}
+        onChange={handleHoraChange}
+        style={{ marginBottom: '10px' }}
+      >
+        <option value="">Selecciona una hora</option>
+        {randomHours.map((hour, index) => (
+          <option key={index} value={hour}>
+            {hour}
+          </option>
+        ))}
+      </select>
+
+      <label htmlFor="medico">Médico:</label>
+      <select id="medico" value={medicoSeleccionado} onChange={handleMedicoChange}>
+        <option value="">Selecciona un médico</option>
+        <option value="Dr. Smith">Dr. Smith</option>
+        <option value="Dr. Johnson">Dr. Johnson</option>
+        <option value="Dr. Brown">Dr. Brown</option>
+        <option value="Dr. Davis">Dr. Davis</option>
+      </select>
 
       <button onClick={handleEnviarFormulario}>Agendar Cita</button>
     </div>
@@ -115,7 +147,7 @@ const DashboardRectangle = ({ title, content, isSelected, usuario, setUsuario, c
 
   const handleSelectCita = () => {
     if (tiposCitasGenerados.includes(selectedCita)) {
-      alert(`Ya se ha generado un ticket para ${selectedCita}.`);
+      alert(`Ya se ha generado una Autorización para ${selectedCita}.`);
       return;
     }
 
@@ -140,8 +172,7 @@ const DashboardRectangle = ({ title, content, isSelected, usuario, setUsuario, c
 
     setTiposCitasGenerados([...tiposCitasGenerados, selectedCita]);
     setCodigoGenerado(nuevoCodigo);
-    // Comenté la línea que muestra automáticamente el formulario
-    // setFormularioVisible(true);
+    setFormularioVisible(false);
   };
 
   const handleNumeroTicketChange = (e) => {
@@ -150,26 +181,24 @@ const DashboardRectangle = ({ title, content, isSelected, usuario, setUsuario, c
 
   const handleAgendarCita = () => {
     if (!numeroTicket || numeroTicket.trim() === '') {
-      alert('Por favor, ingresa el número de ticket antes de agendar la cita.');
+      alert('Por favor, ingresa el número de Autorización antes de agendar la cita.');
       return;
     }
 
-    alert(`Número de Ticket ingresado: ${numeroTicket}, Tipo de Cita: ${selectedCita}`);
-    setFormularioVisible(true);
-  };
-
-  const renderFormulario = () => {
-    switch (codigoGenerado.charAt(0)) {
-      case 'G':
-        return formularioVisible ? <FormularioMedicinaGeneral /> : null;
-      default:
-        return null;
+    const regexPattern = /^G\d{3}$/;
+    if (!regexPattern.test(numeroTicket)) {
+      alert('El número de Autorización ingresado no cumple con el formato requerido para Medicina General (GXXX).');
+      return;
     }
+
+    alert(`Número de Autorización ingresado: ${numeroTicket}, Tipo de Cita: ${selectedCita}`);
+    setFormularioVisible(true);
   };
 
   return (
     <div className={`rectangle other-rectangle ${isSelected ? 'selected' : ''}`}>
       <h1>{title}</h1>
+
       {title === 'Actualizar Datos' && usuario && (
         <div className="user-profile">
           <p>
@@ -192,7 +221,8 @@ const DashboardRectangle = ({ title, content, isSelected, usuario, setUsuario, c
           )}
         </div>
       )}
-      {title === 'Generar Turno' && (
+
+      {title === 'Generar Autorización' && (
         <div>
           <label htmlFor="tipoCita">Tipo de Cita:</label>
           <select id="tipoCita" value={selectedCita} onChange={handleCitaChange}>
@@ -205,14 +235,141 @@ const DashboardRectangle = ({ title, content, isSelected, usuario, setUsuario, c
           <Ticket codigoGenerado={codigoGenerado} />
         </div>
       )}
+
       {title === 'Agendar Cita' && (
         <div>
-          <label htmlFor="numeroTicket">Número de Ticket:</label>
+          <label htmlFor="numeroTicket">Número de Autorización:</label>
           <input type="text" id="numeroTicket" value={numeroTicket} onChange={handleNumeroTicketChange} />
-          <button onClick={handleAgendarCita}>Agendar Cita</button>
-          {renderFormulario()}
+          <button onClick={handleAgendarCita}>Comprobar Autorización</button>
+          {formularioVisible && codigoGenerado.startsWith('G') && codigoGenerado.length === 4 && (
+            <FormularioMedicinaGeneral usuario={usuario} />
+          )}
         </div>
       )}
+
+      {title === 'Ver Citas' && (
+        <div class="card-container">
+  <div class="card">
+    <div class="card-header">Medicina General</div>
+    <div class="card-body">
+      <div class="card-title">Detalles de la cita</div>
+      <div class="card-text">
+        <div class="info-item">
+          <div class="info-label">Nombre del paciente</div>
+          <span>{usuario.firstName} {usuario.lastName}</span>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Fecha de la cita</div>
+          <div>15/12/2023</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Hora de la cita</div>
+          <div>10:30 AM</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Médico</div>
+          <div>Dr. García</div>
+        </div>
+      </div>
+      <div class="btn-container">
+      <a href="#" class="btn" onClick={() => alert("Has cancelado tu cita")}>
+        Cancelar Cita
+      </a>
+    </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Odontología</div>
+    <div class="card-body">
+      <div class="card-title">Detalles de la cita</div>
+      <div class="card-text">
+        <div class="info-item">
+          <div class="info-label">Nombre del paciente</div>
+          <span>{usuario.firstName} {usuario.lastName}</span>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Fecha de la cita</div>
+          <div>18/12/2023</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Hora de la cita</div>
+          <div>11:45 AM</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Médico</div>
+          <div>Dr. Martínez</div>
+        </div>
+      </div>
+      <div class="btn-container">
+      <a href="#" class="btn" onClick={() => alert("Has cancelado tu cita")}>
+        Cancelar Cita
+      </a>      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Especialidades</div>
+    <div class="card-body">
+      <div class="card-title">Detalles de la cita</div>
+      <div class="card-text">
+        <div class="info-item">
+          <div class="info-label">Nombre del paciente</div>
+          <span>{usuario.firstName} {usuario.lastName}</span>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Fecha de la cita</div>
+          <div>22/12/2023</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Hora de la cita</div>
+          <div>11:00 AM</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Médico</div>
+          <div>Dr. González</div>
+        </div>
+      </div>
+      <div class="btn-container">
+      <a href="#" class="btn" onClick={() => alert("Has cancelado tu cita")}>
+        Cancelar Cita
+      </a>      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Especialidades</div>
+    <div class="card-body">
+      <div class="card-title">Detalles de la cita</div>
+      <div class="card-text">
+        <div class="info-item">
+          <div class="info-label">Nombre del paciente</div>
+          <span>{usuario.firstName} {usuario.lastName}</span>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Fecha de la cita</div>
+          <div>25/12/2023</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Hora de la cita</div>
+          <div>2:15 PM</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Médico</div>
+          <div>Dr. Ramírez</div>
+        </div>
+      </div>
+      <div class="btn-container">
+      <a href="#" class="btn" onClick={() => alert("Has cancelado tu cita")}>
+        Cancelar Cita
+      </a>      </div>
+    </div>
+  </div>
+
+</div>
+
+      )}
+
       <p>{content}</p>
     </div>
   );
@@ -224,10 +381,9 @@ const Home = () => {
 
   const dashboardItems = [
     { title: 'Actualizar Datos', content: '' },
-    { title: 'Generar Turno', content: 'Contenido relacionado con generar turno.' },
+    { title: 'Generar Autorización', content: 'Contenido relacionado con Generar Autorización.' },
     { title: 'Agendar Cita', content: 'Contenido relacionado con agendar cita.' },
     { title: 'Ver Citas', content: 'Contenido relacionado con ver citas.' },
-    { title: 'Historial Médico', content: 'Contenido relacionado con historial médico.' },
   ];
 
   const [selectedItem, setSelectedItem] = useState(dashboardItems[0]);
@@ -241,14 +397,20 @@ const Home = () => {
   return (
     <div>
       <header>
+        <div className="header-banner">
+          <h1>Tu salud, nuestro compromiso diario</h1>
+        </div>
+        <div className="clear"></div>
         <nav>
+          <div className="site-title">Finland</div>
           <ul>
-            <li>Servicio Médico Virtual</li>
+            <li><a href="/home">Tu Servicio Médico Virtual.</a></li>
+
           </ul>
         </nav>
       </header>
 
-      <br></br>
+      <br />
 
       <div className="container">
         <div className="rectangle welcome-rectangle">
@@ -276,8 +438,15 @@ const Home = () => {
           />
         </div>
       </div>
+
+      <footer>
+        <p>© 2023 Tu Servicio Médico Virtual. Todos los derechos reservados.</p>
+      </footer>
     </div>
   );
 };
+
+
+
 
 export default Home;
