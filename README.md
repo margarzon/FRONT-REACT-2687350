@@ -74,9 +74,13 @@ _VISTA USUARIO_
 
 ![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/69e5ca13-b473-4cff-a633-d23d5286ff58)
 
-![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/d2bb6458-37f0-4175-b1a0-dbd7bd5d46f2)
 
+_VISTA MEDICO_
 
+![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/d0f24157-6142-43dd-85e5-723d5eba5d75)
 
+![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/76110a24-b0cd-4163-9d67-84415ae92e9b)
 
+![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/2b0621ce-9ddf-4494-a09e-61092ee09822)
 
+![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/d5b2d17c-8041-4e13-a576-beba19d3e442)
