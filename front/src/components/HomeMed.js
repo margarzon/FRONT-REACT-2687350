@@ -239,14 +239,19 @@ const HomeMed = () => {
   const [excusaInasistencia, setExcusaInasistencia] = useState('');
 
   const handleSelectItem = (item) => {
-    setSelectedItem(item);
-
-    // Si el elemento seleccionado es 'Reportes Excusas de Inasistencia', inicializa el estado del formulario
+    // Check if the selected item is 'Reportes Excusas de Inasistencia'
     if (item.title === 'Reportes Excusas de Inasistencia') {
+      setSelectedItem(item);
       setExcusaInasistencia('');
+    } else if (item.title === 'Citas Pendientes') {
+      // Open a new window or navigate to the specified link for 'Ver Citas'
+      window.open('/med', '_blank'); // You can modify this line based on your routing needs
+    } else {
+      // For other items, update the selected item state
+      setSelectedItem(item);
     }
   };
-
+  
   return (
     <div>
       <header>
@@ -258,7 +263,7 @@ const HomeMed = () => {
           <div className="site-title">Finland</div>
           <ul>
             <li>
-              <a href="/home">Tu Servicio Médico Virtual.</a>
+              <a href="/homemed">Tu Servicio Médico Virtual.</a>
             </li>
           </ul>
         </nav>

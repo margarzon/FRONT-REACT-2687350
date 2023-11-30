@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 const cors = require('cors');
 const bootcampsRoutes = require('./routes/bootcampsRoutes');
 const usersRoutes = require('./routes/usersRoutes'); // Corregir la importación
+const citasRoutes = require('./routes/citasRoutes');
 
 // Establecer configuración
 dotenv.config({
@@ -33,6 +34,9 @@ app.use('/bootcamps', bootcampsRoutes);
 
 // Rutas de usuarios (corregido)
 app.use('/users', usersRoutes);
+
+app.use('/citas', citasRoutes);
+
 
 // Rutas de reseñas y otras rutas...
 

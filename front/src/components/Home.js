@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import '../components/Home.css';
+
+
 
 const Ticket = ({ codigoGenerado }) => (
   <div className="ticket-wrapper">
@@ -46,24 +48,149 @@ const DashboardLink = ({ title, onSelect }) => (
   </div>
 );
 
+
+const Calendar = ({ onSelectDate }) => {
+  const [currentMonth, setCurrentMonth] = useState(10); // Noviembre es 10
+  const [currentYear, setCurrentYear] = useState(2023);
+  const [calendarDates, setCalendarDates] = useState([]);
+  const [monthYear, setMonthYear] = useState('');
+
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  useEffect(() => {
+    generateCalendar();
+  }, [currentMonth, currentYear]);
+
+  const generateCalendar = () => {
+    const newCalendarDates = [];
+    const daysOfWeek = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+
+    const lastDayOfLastMonth = new Date(currentYear, currentMonth, 0).getDate();
+    const lastDayOfWeek = new Date(currentYear, currentMonth, 0).getDay();
+    const daysToAdd = (7 - lastDayOfWeek + 2) % 7;
+
+    const totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    const selectableDays = generateSelectableDays(currentMonth, totalDays);
+
+    for (let i = 0; i < totalDays; i++) {
+      const day = i + 1;
+      const currentDayOfWeek = (daysToAdd + i) % 7;
+      const isGreen = selectableDays.includes(day);
+
+      newCalendarDates.push({ day, isToday: false, dayOfWeek: daysOfWeek[currentDayOfWeek], isGreen });
+    }
+
+    setCalendarDates(newCalendarDates);
+    setMonthYear(`${months[currentMonth]} ${currentYear}`);
+  };
+
+  const generateSelectableDays = (month, totalDays) => {
+    if (month === 10) {
+      // Noviembre
+      return [30];
+    } else if (month === 11) {
+      // Diciembre
+      return [2, 7, 12, 17, 22, 27, 31].filter(day => day <= totalDays);
+    } else {
+      // Otros meses
+      return generatePatternForMonth(month, totalDays);
+    }
+  };
+
+  const generatePatternForMonth = (month, totalDays) => {
+    // Puedes personalizar el patrón para cada mes aquí
+    switch (month) {
+      case 0: // Enero
+        return [1, 5, 10, 15, 20, 25, 28, 31].filter(day => day <= totalDays);
+      case 1: // Febrero
+        return [2, 7, 14, 21, 24].filter(day => day <= totalDays);
+      case 2: // Marzo
+        return [3, 9, 16, 22, 27].filter(day => day <= totalDays);
+      // ... Ajusta los patrones para otros meses según sea necesario
+      default:
+        // Por defecto, selecciona el primer día del mes
+        return [1];
+    }
+  };
+
+  const showPrevMonth = () => {
+    if (currentMonth > 0) {
+      setCurrentMonth(currentMonth - 1);
+    } else {
+      setCurrentMonth(11);
+      setCurrentYear(currentYear - 1);
+    }
+  };
+
+  const showNextMonth = () => {
+    if (currentMonth < 11) {
+      setCurrentMonth(currentMonth + 1);
+    } else {
+      setCurrentMonth(0);
+      setCurrentYear(currentYear + 1);
+    }
+  };
+
+  const handleDayClick = (day) => {
+    const selectedDate = `${currentYear}-${currentMonth + 1 < 10 ? '0' : ''}${currentMonth + 1}-${day < 10 ? '0' : ''}${day}`;
+    
+    if (calendarDates.find(date => date.day === day && date.isGreen)) {
+      onSelectDate(selectedDate);
+    }
+  };
+
+  return (
+    <div className="calendar" id="calendar">
+      <div className="month">
+        <button className="nav" onClick={showPrevMonth}>&lt;</button>
+        <div id="monthYear">{monthYear}</div>
+        <button className="nav" onClick={showNextMonth}>&gt;</button>
+      </div>
+      <div className="days">
+        <span>Dom</span>
+        <span>Lun</span>
+        <span>Mar</span>
+        <span>Mié</span>
+        <span>Jue</span>
+        <span>Vie</span>
+        <span>Sáb</span>
+      </div>
+      <div className="dates" id="calendarDates">
+        {calendarDates.map((item, index) => (
+          <button key={index} style={{ backgroundColor: item.isGreen ? "green" : "transparent" }} onClick={() => handleDayClick(item.day)}>
+            {item.day !== null ? <time>{item.day}</time> : null}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+
 const FormularioMedicinaGeneral = ({ usuario }) => {
   const [fechaCita, setFechaCita] = useState('');
   const [horaCita, setHoraCita] = useState('');
   const [medicoSeleccionado, setMedicoSeleccionado] = useState('');
+  const [randomHours] = useState(generateRandomHours());
+  const [calendarVisible, setCalendarVisible] = useState(false);
+  const [citasProgramadas, setCitasProgramadas] = useState([]);
 
-  const handleFechaChange = (e) => {
-    setFechaCita(e.target.value);
+  const handleFechaChange = (fecha) => {
+    setFechaCita(fecha);
+    setCalendarVisible(false);
   };
 
-  const generateRandomHours = () => {
+  function generateRandomHours() {
     const hours = [];
-    for (let i = 6; i <= 18; i++) {
+    for (let i = 6; i <= 10; i++) {
       hours.push(`${i < 10 ? '0' : ''}${i}:00`);
     }
     return hours;
-  };
-
-  const randomHours = generateRandomHours();
+  }
 
   const handleHoraChange = (e) => {
     setHoraCita(e.target.value);
@@ -73,9 +200,32 @@ const FormularioMedicinaGeneral = ({ usuario }) => {
     setMedicoSeleccionado(e.target.value);
   };
 
-  const handleEnviarFormulario = () => {
-    alert(`Cita agendada para ${usuario.firstName} el ${fechaCita} a las ${horaCita} con el médico ${medicoSeleccionado}`);
+  const handleEnviarFormulario = async () => {
+    try {
+      const nuevaCita = {
+        usuario: usuario._id,
+        fechaCita,
+        horaCita,
+        medico: medicoSeleccionado,
+      };
+
+      const response = await axios.post('http://127.0.0.1:3000/citas', nuevaCita);
+
+      setCitasProgramadas([...citasProgramadas, response.data]);
+
+      console.log(response.data);
+
+      alert('Cita agendada con éxito');
+    } catch (error) {
+      console.error('Error al agendar la cita:', error.message);
+      alert('Error al agendar la cita. Por favor, inténtalo de nuevo.');
+    }
   };
+
+  const handleCalendarToggle = () => {
+    setCalendarVisible(!calendarVisible);
+  };
+
 
   return (
     <div className="formulario-container">
@@ -85,7 +235,21 @@ const FormularioMedicinaGeneral = ({ usuario }) => {
       <span>{usuario.firstName} {usuario.lastName}</span>
 
       <label htmlFor="fechaCita">Fecha de la Cita:</label>
-      <input type="date" id="fechaCita" value={fechaCita} onChange={handleFechaChange} />
+      {calendarVisible ? (
+        <Calendar onSelectDate={handleFechaChange} />
+      ) : (
+        <>
+          <input
+            type="text"
+            id="fechaCita"
+            value={fechaCita}
+            onChange={() => {}}
+            placeholder="Selecciona una fecha"
+            readOnly
+          />
+          <button onClick={handleCalendarToggle}>Seleccionar Fecha</button>
+        </>
+      )}
 
       <label htmlFor="horaCita">Hora de la Cita:</label>
       <select
@@ -105,16 +269,17 @@ const FormularioMedicinaGeneral = ({ usuario }) => {
       <label htmlFor="medico">Médico:</label>
       <select id="medico" value={medicoSeleccionado} onChange={handleMedicoChange}>
         <option value="">Selecciona un médico</option>
-        <option value="Dr. Smith">Dr. Smith</option>
-        <option value="Dr. Johnson">Dr. Johnson</option>
-        <option value="Dr. Brown">Dr. Brown</option>
-        <option value="Dr. Davis">Dr. Davis</option>
+        <option value="Dra. Ana Montoya">Dra. Ana Montoya</option>
+        <option value="Dr. David Martinez">Dr. David Martinez</option>
+        <option value="Dr. Juan Cardona">Dr. Juan Cardona</option>
+        <option value="Dr. Richard Oviedo">Dr. Richard Oviedo</option>
       </select>
 
       <button onClick={handleEnviarFormulario}>Agendar Cita</button>
     </div>
   );
 };
+
 
 const DashboardRectangle = ({ title, content, isSelected, usuario, setUsuario, codigoGenerado, setCodigoGenerado, tiposCitasGenerados, setTiposCitasGenerados }) => {
   const [isEditingEmail, setIsEditingEmail] = useState(false);
@@ -195,6 +360,10 @@ const DashboardRectangle = ({ title, content, isSelected, usuario, setUsuario, c
     setFormularioVisible(true);
   };
 
+  const [citasProgramadas, setCitasProgramadas] = useState([]);
+
+  
+
   return (
     <div className={`rectangle other-rectangle ${isSelected ? 'selected' : ''}`}>
       <h1>{title}</h1>
@@ -247,128 +416,6 @@ const DashboardRectangle = ({ title, content, isSelected, usuario, setUsuario, c
         </div>
       )}
 
-      {title === 'Ver Citas' && (
-        <div class="card-container">
-  <div class="card">
-    <div class="card-header">Medicina General</div>
-    <div class="card-body">
-      <div class="card-title">Detalles de la cita</div>
-      <div class="card-text">
-        <div class="info-item">
-          <div class="info-label">Nombre del paciente</div>
-          <span>{usuario.firstName} {usuario.lastName}</span>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Fecha de la cita</div>
-          <div>15/12/2023</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Hora de la cita</div>
-          <div>10:30 AM</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Médico</div>
-          <div>Dr. García</div>
-        </div>
-      </div>
-      <div class="btn-container">
-      <a href="#" class="btn" onClick={() => alert("Has cancelado tu cita")}>
-        Cancelar Cita
-      </a>
-    </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">Odontología</div>
-    <div class="card-body">
-      <div class="card-title">Detalles de la cita</div>
-      <div class="card-text">
-        <div class="info-item">
-          <div class="info-label">Nombre del paciente</div>
-          <span>{usuario.firstName} {usuario.lastName}</span>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Fecha de la cita</div>
-          <div>18/12/2023</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Hora de la cita</div>
-          <div>11:45 AM</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Médico</div>
-          <div>Dr. Martínez</div>
-        </div>
-      </div>
-      <div class="btn-container">
-      <a href="#" class="btn" onClick={() => alert("Has cancelado tu cita")}>
-        Cancelar Cita
-      </a>      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">Especialidades</div>
-    <div class="card-body">
-      <div class="card-title">Detalles de la cita</div>
-      <div class="card-text">
-        <div class="info-item">
-          <div class="info-label">Nombre del paciente</div>
-          <span>{usuario.firstName} {usuario.lastName}</span>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Fecha de la cita</div>
-          <div>22/12/2023</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Hora de la cita</div>
-          <div>11:00 AM</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Médico</div>
-          <div>Dr. González</div>
-        </div>
-      </div>
-      <div class="btn-container">
-      <a href="#" class="btn" onClick={() => alert("Has cancelado tu cita")}>
-        Cancelar Cita
-      </a>      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">Especialidades</div>
-    <div class="card-body">
-      <div class="card-title">Detalles de la cita</div>
-      <div class="card-text">
-        <div class="info-item">
-          <div class="info-label">Nombre del paciente</div>
-          <span>{usuario.firstName} {usuario.lastName}</span>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Fecha de la cita</div>
-          <div>25/12/2023</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Hora de la cita</div>
-          <div>2:15 PM</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Médico</div>
-          <div>Dr. Ramírez</div>
-        </div>
-      </div>
-      <div class="btn-container">
-      <a href="#" class="btn" onClick={() => alert("Has cancelado tu cita")}>
-        Cancelar Cita
-      </a>      </div>
-    </div>
-  </div>
-
-</div>
-
-      )}
 
       <p>{content}</p>
     </div>
@@ -391,7 +438,11 @@ const Home = () => {
   const [tiposCitasGenerados, setTiposCitasGenerados] = useState([]);
 
   const handleSelectItem = (item) => {
-    setSelectedItem(item);
+    if (item.title === 'Ver Citas') {
+      window.open('/citas', '_blank');
+    } else {
+      setSelectedItem(item);
+    }
   };
 
   return (
@@ -419,8 +470,8 @@ const Home = () => {
             <p>Agendar tus citas nunca ha sido tan fácil.</p>
             <br />
             {dashboardItems.map((item, index) => (
-              <DashboardLink key={index} title={item.title} onSelect={() => handleSelectItem(item)} />
-            ))}
+          <DashboardLink key={index} title={item.title} onSelect={() => handleSelectItem(item)} />
+        ))}
           </div>
         </div>
 

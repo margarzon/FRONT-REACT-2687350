@@ -1,0 +1,23 @@
+.citas-list-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .citas-list-container li {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .citas-list-container li strong {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  
+  .citas-list-container h1 {
+    text-align: center;
+  }
