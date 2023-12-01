@@ -70,6 +70,15 @@ REGISTRO EN BASE DE DATOS
 
 ![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/27a7be07-97d5-4d7c-9341-10185f5ab565)
 
+INDEX - PAGINA PRINCIPAL
+
+![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/3bf93d03-8529-4ff1-8173-c74dd0cf9bdf)
+
+VISTA ADMIN
+
+![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/f469fc79-de9b-459b-b6db-172892746863)
+
+
 FUNCIONAMIENTO DE LA API DESDE FRONT
 
 ![image](https://github.com/margarzon/FRONT-REACT-2687350/assets/125483628/8d76e6d8-42cb-4835-befb-2537682dd688)
