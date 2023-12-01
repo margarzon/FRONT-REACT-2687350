@@ -26,19 +26,14 @@ const LoginForm = () => {
 
       console.log('Respuesta del servidor:', response);
 
-      // Corrige la comparación de contraseñas
-      if (
-        response.data.data.email === 'medico@gmail.com' &&
-        response.data.data.password === 'med1234' // Actualiza la contraseña
-      ) {
-        // Redirige al usuario a /homemed si las credenciales son específicas
+      if (response.data.data.role === 'medico') {
         navigate('/homemed', { state: { usuario: response.data.data } });
+      } else if (response.data.data.role === 'user') {
+        navigate('/home', { state: { usuario: response.data.data } });
       } else {
-        // Redirige al usuario a /home si las credenciales no son específicas
         navigate('/home', { state: { usuario: response.data.data } });
       }
 
-      // Limpiar el formulario después de un inicio de sesión exitoso
       setCredenciales({
         email: '',
         password: '',
@@ -77,7 +72,7 @@ const LoginForm = () => {
           </form>
           <div id="formFooter">
             <a className="underlineHover" href="/">
-              ¿No tienes una cuenta? Registrate
+              ¿No tienes una cuenta? Regístrate
             </a>
           </div>
         </div>

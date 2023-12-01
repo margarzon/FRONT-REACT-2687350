@@ -23,6 +23,11 @@ const UserSchema = mongoose.Schema({
         minlength: [6, "La contraseña debe tener al menos 6 caracteres"],
         // Puedes agregar validaciones adicionales para la complejidad de la contraseña
     },
+    role: {
+        type: String,
+        enum: ['user', 'medico', 'admin'],
+        default: 'user',
+    },
     createdAt: {
         type: Date,
         default: Date.now,

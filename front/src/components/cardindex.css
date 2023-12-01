@@ -1,0 +1,62 @@
+/* cardindex.css */
+
+.custom-card-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px;
+}
+
+.custom-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  width: 18rem;
+  position: relative;
+}
+
+.custom-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.custom-card-body {
+  padding: 1.25rem;
+}
+
+.custom-card-title {
+  color: #343a40;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.custom-card-text {
+  color: #6c757d;
+}
+
+/* Imágenes de fondo */
+.custom-card::before {
+  content: '';
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  opacity: 0.5; /* Puedes ajustar la opacidad según tus preferencias */
+}
+
+.custom-card-1::before {
+  background-image: url('../img1.jpg');
+}
+
+.custom-card-2::before {
+  background-image: url('../img2.jpg');
+}
+
+.custom-card-3::before {
+  background-image: url('../img1.jpg');
+}

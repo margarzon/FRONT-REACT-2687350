@@ -1,23 +1,68 @@
-.citas-list-container ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 800px;
+    margin: 20px auto;
   }
   
-  .citas-list-container li {
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  .card {
+    width: 40%;
+    margin: 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 12px; /* Aumentado el radio para suavizar los bordes */
+    overflow: hidden;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Agregado un difuminado gris claro */
   }
   
-  .citas-list-container li strong {
-    font-weight: bold;
-    margin-right: 5px;
-  }
-  
-  .citas-list-container h1 {
+  .card-header {
+    background-color: #56baed;
+    color: #fff;
+    padding: 10px;
     text-align: center;
   }
+  .card-body {
+    padding: 20px;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+  }
+  
+  .card-text {
+    color: #555;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Muestra los elementos en columna */
+  }
+  
+  .info-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px; /* Ajustado el margen inferior */
+  }
+  
+  .info-label {
+    font-weight: bold;
+  }
+  
+  .btn-container {
+    text-align: center; /* Centro el botón */
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #4caf50; /* Cambiado a verde */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  
+  .btn:hover {
+    background-color: #45a049; /* Color verde oscuro al pasar el ratón */
+  }
+  

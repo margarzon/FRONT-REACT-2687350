@@ -1,4 +1,3 @@
-// RegistroForm.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +10,7 @@ const RegistroForm = () => {
     lastName: '',
     email: '',
     password: '',
+    // Elimina el campo 'role' del estado local, ya que se establecerá automáticamente como 'user'
   });
 
   const handleChange = (e) => {
@@ -61,7 +61,6 @@ const RegistroForm = () => {
 
       // Navegar a la página de login después de un registro exitoso
       navigate('/login');
-
     } catch (error) {
       console.error('Error al registrar al usuario:', error);
 
@@ -95,8 +94,6 @@ const RegistroForm = () => {
       <div className="wrapper fadeInDown">
         <div id="formContent">
           <h2 className="active">Registrarse</h2>
-          <div className="fadeIn first">
-          </div>
           <form onSubmit={handleSubmit}>
             <input
               type="text"

@@ -6,7 +6,8 @@ import RegistroForm from './components/RegistroForm';
 import HomeMed from './components/HomeMed';
 import CitasList from './components/CitasList';
 import CitasMed from './components/CitasMed';
-
+import HomeIndex from './components/HomeIndex';
+import AdminHome from './components/AdminHome';
 
 const App = () => {
   const [usuario, setUsuario] = useState(null);
@@ -17,7 +18,9 @@ const App = () => {
         <Route path="/login" element={<LoginForm setUsuario={setUsuario} />} />
         <Route path="/home" element={<Home usuario={usuario} />} />
         <Route path="/citas" element={<CitasList />} />
-        <Route path="/med" element={<CitasMed />} /> {/* Agrega la ruta para CitasMed con /med */}
+        <Route path="/med" element={<CitasMed />} />
+        <Route path="/index" element={<HomeIndex />} />
+        <Route path="/admin" element={<AdminHome usuarioLogueado={usuario} />} /> {/* Add the route for Admin with /admin */}
         <Route path="/" element={<RegistroForm />} />
         <Route path="/homeMed" element={<HomeMed usuario={usuario} />} />
       </Routes>
